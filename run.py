@@ -13,7 +13,13 @@ n_init = int(sys.argv[4])
 seed =int(sys.argv[5])
 grad_q2 = False
 if len(sys.argv) > 6:
-    grad_q2 = sys.argv[6].lower() in {"1", "true", "yes", "y"}
+    grad_q2_arg = sys.argv[6].lower()
+    if grad_q2_arg not in {"true", "false"}:
+        raise ValueError(f"grad_q2 must be 'true' or 'false', got {sys.argv[6]!r}")
+    grad_q2 = grad_q2_arg == "true"
+global_points_factor = 50
+if len(sys.argv) > 7:
+    global_points_factor = int(sys.argv[7])
 
 results =run_loop(
     function_name = function_name,
@@ -22,6 +28,7 @@ results =run_loop(
     num_al_iter = num_al_iter,
     seed = seed,
     grad_q2= grad_q2,
+    global_points_factor=global_points_factor,
 )
 
 output_dir= os.path.join("results", function_name)

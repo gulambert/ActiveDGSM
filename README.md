@@ -50,6 +50,33 @@ look-ahead reduction in `GradVarRed`, `GlobalGradVarRed`, and
 Run `python run_loop.py --help` for the full list of options (retraining strategy, GP
 normalization, metric logging frequency, state-dict checkpointing, ...).
 
+`run.py` is a minimal positional-args wrapper around `run_loop()`, for quick one-off runs
+or cluster job scripts. It takes no flags, only positional arguments, in this order:
+
+```bash
+python run.py <function_name> <method_name> <num_al_iter> <n_init> <seed> [grad_q2] [global_points_factor]
+```
+
+For example:
+
+```bash
+python run.py ishigami2 GlobalGradVarRed 100 10 63100
+```
+
+`grad_q2` is optional (defaults to off; pass exactly `true` or `false` — anything else
+raises an error).
+`global_points_factor` is optional too (defaults to `50`, same as `run_loop.py`'s
+`--global-points-factor`) and only matters for `GlobalGradVarRed`/`GlobalGradVarRedKmeans` 
+ignored by every other method. To set it you must also supply `grad_q2`, e.g.:
+
+```bash
+python run.py ishigami2 GlobalGradVarRed 100 10 63100 false 100
+```
+
+Every other `run_loop()` option (kmeans config, num-fantasies, ...) stays at its default —
+use `run_loop.py` directly if you need to change those. The resulting metrics dict is
+pickled to `results/<function_name>/<function_name>_<method_name>_<seed>.pickle`.
+
 ## Layout
 
 ```
