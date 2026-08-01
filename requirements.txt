@@ -1,0 +1,10 @@
+torch==2.9.0
+botorch==0.11.0
+gpytorch==1.11
+numpy==2.2.6
+scikit-learn==1.5.2
+SALib==1.5.1
+torchmetrics==1.6.1
+tqdm==4.66.5
+rich==13.7.1
+k-means-constrained==0.7.6

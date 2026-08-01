@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# run artifacts
+results/
+logs/
+*.pt
+
+# local environments
+.venv/
+venv/
